@@ -1,1 +1,7 @@
-<p>placeholder</p>
+<% if !@entry.persisted? %>
+  <%= render "morning_form" %>
+<% elsif !@entry.reviewed? %>
+  <%= render "evening_form" %>
+<% else %>
+  <%= render "summary" %>
+<% end %>
