@@ -7,15 +7,28 @@
   <%= form_with model: @entry, url: focus_entry_path, method: :patch, class: "space-y-6" do |f| %>
     <div class="space-y-3">
       <p class="text-sm font-medium text-stone-700">Did you manage to achieve your focus goal?</p>
-      <div class="flex gap-4">
-        <label for="achieved_true" class="flex items-center gap-2 cursor-pointer text-sm text-stone-700">
-          <%= f.radio_button :achieved, "true", id: "achieved_true" %>
-          Yes
+      <div class="grid grid-cols-2 gap-3">
+
+        <%# Yes card %>
+        <label class="relative flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-stone-200 bg-white px-4 py-6 cursor-pointer transition-all hover:border-stone-300 has-[:checked]:border-emerald-500 has-[:checked]:bg-emerald-50">
+          <%= f.radio_button :achieved, "true", id: "achieved_true",
+                class: "absolute inset-0 w-full h-full opacity-0 cursor-pointer" %>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-stone-300 transition-colors [label:has(:checked)_&]:text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="text-sm font-medium text-stone-600 [label:has(:checked)_&]:text-emerald-700">Yes</span>
         </label>
-        <label for="achieved_false" class="flex items-center gap-2 cursor-pointer text-sm text-stone-700">
-          <%= f.radio_button :achieved, "false", id: "achieved_false" %>
-          No
+
+        <%# No card %>
+        <label class="relative flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-stone-200 bg-white px-4 py-6 cursor-pointer transition-all hover:border-stone-300 has-[:checked]:border-red-400 has-[:checked]:bg-red-50">
+          <%= f.radio_button :achieved, "false", id: "achieved_false",
+                class: "absolute inset-0 w-full h-full opacity-0 cursor-pointer" %>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-stone-300 transition-colors [label:has(:checked)_&]:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="text-sm font-medium text-stone-600 [label:has(:checked)_&]:text-red-600">No</span>
         </label>
+
       </div>
       <% if @entry.errors[:achieved].any? %>
         <p class="text-xs text-red-600"><%= @entry.errors[:achieved].first %></p>

@@ -29,7 +29,7 @@ RSpec.describe "Evening review", type: :system do
     it "saves the review and shows the summary" do
       visit root_path
 
-      choose "Yes"
+      find("label", text: "Yes").click
       click_button "Save review"
 
       expect(page).to have_text("End-of-day review saved")
@@ -43,7 +43,7 @@ RSpec.describe "Evening review", type: :system do
     it "reveals the reason field when No is selected" do
       visit root_path
 
-      choose "No"
+      find("label", text: "No").click
 
       expect(page).to have_field("What got in the way?")
     end
@@ -51,7 +51,7 @@ RSpec.describe "Evening review", type: :system do
     it "saves the review with a reason and shows the summary" do
       visit root_path
 
-      choose "No"
+      find("label", text: "No").click
       fill_in "What got in the way?", with: "Got pulled into production incidents"
       click_button "Save review"
 
@@ -68,7 +68,7 @@ RSpec.describe "Evening review", type: :system do
     it "shows a validation error when no reason is given" do
       visit root_path
 
-      choose "No"
+      find("label", text: "No").click
       click_button "Save review"
 
       expect(page).to have_text("can't be blank")
