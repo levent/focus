@@ -1,1 +1,39 @@
-<p class="text-stone-500 text-sm">Summary — coming soon.</p>
+<div class="space-y-6">
+  <div>
+    <h2 class="text-xl font-medium text-stone-700">Today's summary</h2>
+    <p class="mt-1 text-stone-400 text-sm"><%= @entry.entry_date.strftime("%A, %-d %B %Y") %></p>
+  </div>
+
+  <div class="rounded-lg border border-stone-200 bg-white divide-y divide-stone-100">
+    <div class="px-4 py-4">
+      <p class="text-xs font-medium tracking-wide text-stone-400">Primary focus</p>
+      <p class="mt-1 text-sm text-stone-800"><%= @entry.primary_focus %></p>
+    </div>
+
+    <% if @entry.anticipated_blockers.present? %>
+      <div class="px-4 py-4">
+        <p class="text-xs font-medium tracking-wide text-stone-400">Anticipated blockers</p>
+        <p class="mt-1 text-sm text-stone-800"><%= @entry.anticipated_blockers %></p>
+      </div>
+    <% end %>
+
+    <div class="px-4 py-4">
+      <p class="text-xs font-medium tracking-wide text-stone-400">Outcome</p>
+      <% if @entry.achieved? %>
+        <p class="mt-1 text-sm font-medium text-emerald-600">Achieved</p>
+      <% else %>
+        <p class="mt-1 text-sm font-medium text-red-500">Not achieved</p>
+        <% if @entry.non_achievement_reason.present? %>
+          <p class="mt-1 text-sm text-stone-600"><%= @entry.non_achievement_reason %></p>
+        <% end %>
+      <% end %>
+    </div>
+
+    <% if @entry.ai_reflection.present? %>
+      <div class="px-4 py-4">
+        <p class="text-xs font-medium tracking-wide text-stone-400">Reflection</p>
+        <p class="mt-2 text-sm text-stone-700 leading-relaxed"><%= @entry.ai_reflection %></p>
+      </div>
+    <% end %>
+  </div>
+</div>

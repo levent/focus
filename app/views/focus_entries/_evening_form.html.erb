@@ -1,1 +1,59 @@
-<p class="text-stone-500 text-sm">Evening review — coming soon.</p>
+<div class="space-y-8">
+  <div>
+    <h2 class="text-xl font-medium text-stone-700">How did today go?</h2>
+    <p class="mt-1 text-stone-500 text-sm">Your focus was: <span class="font-medium text-stone-700"><%= @entry.primary_focus %></span></p>
+  </div>
+
+  <%= form_with model: @entry, url: focus_entry_path, method: :patch, class: "space-y-6" do |f| %>
+    <div class="space-y-3">
+      <p class="text-sm font-medium text-stone-700">Did you manage to achieve your focus goal?</p>
+      <div class="flex gap-4">
+        <label for="achieved_true" class="flex items-center gap-2 cursor-pointer text-sm text-stone-700">
+          <%= f.radio_button :achieved, "true", id: "achieved_true" %>
+          Yes
+        </label>
+        <label for="achieved_false" class="flex items-center gap-2 cursor-pointer text-sm text-stone-700">
+          <%= f.radio_button :achieved, "false", id: "achieved_false" %>
+          No
+        </label>
+      </div>
+      <% if @entry.errors[:achieved].any? %>
+        <p class="text-xs text-red-600"><%= @entry.errors[:achieved].first %></p>
+      <% end %>
+    </div>
+
+    <div id="reason_field" class="space-y-2 <%= 'hidden' unless @entry.achieved == false %>">
+      <%= f.label :non_achievement_reason, "What got in the way?",
+            class: "block text-sm font-medium text-stone-700" %>
+      <%= f.text_area :non_achievement_reason,
+            rows: 3,
+            placeholder: "Describe what prevented you from achieving your focus…",
+            class: "mt-1 block w-full rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm text-stone-900 placeholder-stone-400 shadow-sm focus:border-stone-500 focus:outline-none focus:ring-1 focus:ring-stone-500" %>
+      <% if @entry.errors[:non_achievement_reason].any? %>
+        <p class="text-xs text-red-600"><%= @entry.errors[:non_achievement_reason].first %></p>
+      <% end %>
+    </div>
+
+    <div class="pt-2">
+      <%= f.submit "Save review",
+            class: "w-full rounded-lg bg-stone-800 px-4 py-2.5 text-sm font-medium text-white hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2 cursor-pointer transition-colors" %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  function setupAchievementToggle() {
+    const reasonField = document.getElementById("reason_field");
+    const radios = document.querySelectorAll('input[name="focus_entry[achieved]"]');
+
+    function toggleReason() {
+      const noSelected = document.getElementById("achieved_false").checked;
+      reasonField.classList.toggle("hidden", !noSelected);
+    }
+
+    radios.forEach(r => r.addEventListener("change", toggleReason));
+  }
+
+  document.addEventListener("DOMContentLoaded", setupAchievementToggle);
+  document.addEventListener("turbo:load", setupAchievementToggle);
+</script>

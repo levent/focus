@@ -29,6 +29,6 @@ class FocusEntry < ApplicationRecord
   end
 
   def reviewed?
-    !achieved.nil?
+    persisted? ? !achieved_in_database.nil? : !achieved.nil?
   end
 end
