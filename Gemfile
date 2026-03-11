@@ -55,7 +55,7 @@ end
 
 gem "tailwindcss-rails", "~> 4.4"
 
-gem "rspec-rails", "~> 8.0", groups: [:development, :test]
+gem "rspec-rails", "~> 8.0", groups: [ :development, :test ]
 
 gem "simplecov", "~> 0.22.0", group: :test, require: false
 

@@ -78,7 +78,7 @@ RSpec.describe FocusEntry, type: :model do
 
     describe ".recent" do
       it "returns entries in descending date order" do
-        expect(FocusEntry.recent).to eq([today_entry, yesterday_entry, unreviewed_entry])
+        expect(FocusEntry.recent).to eq([ today_entry, yesterday_entry, unreviewed_entry ])
       end
     end
   end

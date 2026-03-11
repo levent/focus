@@ -11,5 +11,5 @@ Rails.application.routes.draw do
 
   root "focus_entries#show"
 
-  resource :focus_entry, only: [:show, :create, :update]
+  resource :focus_entry, only: [ :show, :create, :update ]
 end
