@@ -1,0 +1,28 @@
+<div class="space-y-8">
+  <div class="flex items-center justify-between">
+    <h2 class="text-xl font-medium text-stone-700">History</h2>
+    <%= link_to "Back to today", root_path, class: "text-sm text-stone-400 hover:text-emerald-600 transition-colors" %>
+  </div>
+
+  <% if @entries.any? %>
+    <div class="space-y-8">
+      <% @entries.each do |entry| %>
+        <%= render "focus_entries/summary", entry: entry %>
+      <% end %>
+    </div>
+
+    <nav class="flex items-center justify-between pt-4">
+      <% if @page > 1 %>
+        <%= link_to "Newer", history_path(page: @page - 1), class: "text-sm text-stone-500 hover:text-emerald-600 transition-colors" %>
+      <% else %>
+        <span></span>
+      <% end %>
+
+      <% if @has_next_page %>
+        <%= link_to "Older", history_path(page: @page + 1), class: "text-sm text-stone-500 hover:text-emerald-600 transition-colors" %>
+      <% end %>
+    </nav>
+  <% else %>
+    <p class="text-sm text-stone-400">No completed entries yet.</p>
+  <% end %>
+</div>
